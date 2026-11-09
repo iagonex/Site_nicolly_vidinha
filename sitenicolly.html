@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nosso Encontro Secreto... 💋</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans + Great Vibes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wine: {
+                            950: '#090104',
+                            900: '#17040a',
+                            800: '#2a0913',
+                            700: '#460d1e',
+                            600: '#75142a',
+                            500: '#a31c39'
+                        },
+                        flame: {
+                            500: '#ff4d4d',
+                            400: '#ff6b6b',
+                            300: '#ff9999'
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            300: '#fde047',
+                            200: '#fef08a'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Great Vibes', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            background-color: #060002;
+            color: #f8ecf2;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140vw;
+            height: 140vh;
+            background: radial-gradient(circle at center, rgba(163, 28, 57, 0.28) 0%, rgba(23, 4, 10, 0.9) 60%, rgba(6, 0, 2, 1) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .card-glass {
+            background: rgba(26, 6, 13, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 107, 107, 0.22);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(163, 28, 57, 0.2);
+        }
+
+        .card-glass-hot {
+            background: linear-gradient(135deg, rgba(65, 10, 24, 0.92), rgba(18, 2, 8, 0.96));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 77, 0.45);
+            box-shadow: 0 0 35px rgba(255, 77, 77, 0.35);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #a31c39 0%, #ff4d4d 100%);
+            transition: all 0.2s ease-out;
+        }
+
+        .btn-gradient:active {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+
+        .custom-checkbox input:checked + div {
+            background-color: #a31c39;
+            border-color: #ff4d4d;
+        }
+
+        .custom-checkbox input:checked + div i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .custom-radio input:checked + div {
+            border-color: #ff4d4d;
+            background-color: rgba(163, 28, 57, 0.35);
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.25);
+        }
+
+        .custom-radio input:checked + div .radio-dot {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .step-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .step-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #460d1e 0%, #a31c39 50%, #ff4d4d 100%);
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 15px #ff4d4d, 0 0 5px #000;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            animation: float-up 4s linear forwards;
+            z-index: 60;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 md:p-6">
+
+    <!-- Fundo de brilho dinâmico -->
+    <div class="ambient-glow"></div>
+
+    <main class="w-full max-w-lg mx-auto relative z-10 py-4">
+
+        <!-- BARRA DE PROGRESSO FLUIDA (7 ETAPAS) -->
+        <div class="mb-6 px-2">
+            <div class="flex justify-between items-center text-xs text-zinc-400 font-semibold mb-2">
+                <span id="progress-label" class="text-flame-400 uppercase tracking-widest text-[10px]">Etapa 1 de 7</span>
+                <span id="progress-percent" class="text-gold-300">14%</span>
+            </div>
+            <div class="w-full bg-wine-900/80 rounded-full h-2 border border-wine-700/50 p-0.5">
+                <div id="progress-bar" class="bg-gradient-to-r from-wine-500 to-flame-400 h-full rounded-full transition-all duration-500" style="width: 14%;"></div>
+            </div>
+        </div>
+
+        <!-- ETAPA 1: CONFIGURAÇÃO DO WHATSAPP & TERMÔMETRO DO PERIGO -->
+        <section id="step-1" class="step-section active card-glass rounded-3xl p-6 text-center">
+            <div class="w-14 h-14 bg-wine-600/30 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-flame-400/40 text-flame-400 text-2xl shadow-lg shadow-wine-950">
+                <i class="fa-solid fa-temperature-full animate-pulse"></i>
+            </div>
+            
+            <span class="text-[11px] font-extrabold tracking-widest text-flame-400 uppercase bg-wine-800/80 px-3 py-1 rounded-full border border-flame-500/20">
+                Termômetro de Intenções
+            </span>
+
+            <h1 class="font-serif text-2xl md:text-3xl font-extrabold mt-3 mb-2 text-white leading-tight">
+                Qual o nível de perigo de ficarmos juntos hoje?
+            </h1>
+            
+            <p class="text-zinc-400 text-xs md:text-sm mb-6">
+                Deslize o controle abaixo para definir a intensidade da nossa noite...
+            </p>
+
+            <!-- Thermometer Slider -->
+            <div class="bg-wine-950/70 p-5 rounded-2xl border border-wine-700/50 mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-bold text-zinc-400">Intensidade:</span>
+                    <span id="danger-val-display" class="text-xl font-extrabold text-flame-400">50%</span>
+                </div>
+                <input type="range" id="danger-slider" min="0" max="100" value="50" oninput="updateDangerMeter(this.value)">
+                
+                <div id="danger-text" class="mt-4 p-3 rounded-xl bg-wine-900/60 border border-flame-500/30 text-gold-300 text-xs font-semibold italic min-h-[48px] flex items-center justify-center">
+                    "Clima esquentando... Riscos moderados de perda de controle!" 🔥
+                </div>
+            </div>
+
+            <!-- WhatsApp input (Para quem enviou a pegadinha) -->
+            <div class="text-left bg-wine-950/60 p-3.5 rounded-2xl border border-wine-800 mb-6">
+                <label class="block text-xs font-bold text-gold-300 mb-1 flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-green-400"></i> Seu número do WhatsApp (Quem está enviando):
+                </label>
+                <input type="tel" id="creator-phone" placeholder="Ex: 5511999998888 (com DDD)" class="w-full bg-wine-900/90 border border-wine-700 rounded-xl px-3 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-flame-500">
+                <p class="text-[10px] text-zinc-400 mt-1">*Digite seu número se quiser receber as respostas dela diretamente no seu zap!</p>
+            </div>
+
+            <button onclick="nextStep(2)" class="btn-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg flex items-center justify-center gap-2 text-base">
+                <span>Continuar para as Regras</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+        </section>
+
+
+        <!-- ETAPA 2: CONTRATO DE CONFIDENCIALIDADE & TERMOS -->
+        <section id="step-2" class="step-section card-glass rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-wine-700/50 pb-3">
+                <div>
+                    <span class="text-[10px] text-flame-400 font-extrabold uppercase tracking-widest">Etapa 2 de 7</span>
+                    <h2 class="font-serif text-xl md:text-2xl font-bold text-white">Contrato Flertante</h2>
+                </div>
+                <div class="w-10 h-10 bg-wine-800/80 rounded-xl flex items-center justify-center text-flame-400">
+                    <i class="fa-solid fa-file-contract text-lg"></i>
+                </div>
+            </div>
+
+            <p class="text-xs text-zinc-300 mb-5 italic border-l-2 border-flame-500 pl-3">
+                "Marque apenas os termos que você concorda em cumprir hoje à noite..." 💋
+            </p>
+
+            <div class="space-y-3 mb-6" id="clauses-container">
+                <label class="custom-checkbox flex items-start gap-3 p-3.5 rounded-2xl bg-wine-950/60 border border-wine-700/50 cursor-pointer">
+                    <input type="checkbox" class="sr-only" checked data-clause="Prometo não morder (a menos que seja pedido)">
+                    <div class="w-6 h-6 rounded-lg border border-wine-500 flex items-center justify-center shrink-0 mt-0.5 transition">
+                        <i class="fa-solid fa-check text-xs text-white opacity-0 scale-50 transition-all"></i>
+                    </div>
+                    <span class="text-xs md:text-sm font-medium text-zinc-200">
+                        Prometo não morder... (a menos que você peça com carinho). 😈
+                    </span>
+                </label>
+
+                <label class="custom-checkbox flex items-start gap-3 p-3.5 rounded-2xl bg-wine-950/60 border border-wine-700/50 cursor-pointer">
+                    <input type="checkbox" class="sr-only" checked data-clause="Concordo que o seu charme deveria ser considerado ilegal">
+                    <div class="w-6 h-6 rounded-lg border border-wine-500 flex items-center justify-center shrink-0 mt-0.5 transition">
+                        <i class="fa-solid fa-check text-xs text-white opacity-0 scale-50 transition-all"></i>
+                    </div>
+                    <span class="text-xs md:text-sm font-medium text-zinc-200">
+                        Concordo formalmente que o seu charme deveria ser crime. 🚨
+                    </span>
+                </label>
+
+                <label class="custom-checkbox flex items-start gap-3 p-3.5 rounded-2xl bg-wine-950/60 border border-wine-700/50 cursor-pointer">
+                    <input type="checkbox" class="sr-only" checked data-clause="Assumo o risco de me apegar demais com esse seu dengo">
+                    <div class="w-6 h-6 rounded-lg border border-wine-500 flex items-center justify-center shrink-0 mt-0.5 transition">
+                        <i class="fa-solid fa-check text-xs text-white opacity-0 scale-50 transition-all"></i>
+                    </div>
+                    <span class="text-xs md:text-sm font-medium text-zinc-200">
+                        Assumo todo o risco de me apegar ainda mais depois de hoje. ❤️
+                    </span>
+                </label>
+
+                <label class="custom-checkbox flex items-start gap-3 p-3.5 rounded-2xl bg-wine-950/60 border border-wine-700/50 cursor-pointer">
+                    <input type="checkbox" class="sr-only" data-clause="Proibido olhar pro celular enquanto estivemos colados">
+                    <div class="w-6 h-6 rounded-lg border border-wine-500 flex items-center justify-center shrink-0 mt-0.5 transition">
+                        <i class="fa-solid fa-check text-xs text-white opacity-0 scale-50 transition-all"></i>
+                    </div>
+                    <span class="text-xs md:text-sm font-medium text-zinc-200">
+                        Proibido olhar pro celular quando a gente estiver coladinho. 📵
+                    </span>
+                </label>
+            </div>
+
+            <button onclick="nextStep(3)" class="btn-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg flex items-center justify-center gap-2 text-base">
+                <span>Assinar & Avançar</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+        </section>
+
+
+        <!-- ETAPA 3: TESTE DE SENSIBILIDADE & VIBE -->
+        <section id="step-3" class="step-section card-glass rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-wine-700/50 pb-3">
+                <div>
+                    <span class="text-[10px] text-flame-400 font-extrabold uppercase tracking-widest">Etapa 3 de 7</span>
+                    <h2 class="font-serif text-xl md:text-2xl font-bold text-white">Estímulo Principal</h2>
+                </div>
+                <div class="w-10 h-10 bg-wine-800/80 rounded-xl flex items-center justify-center text-flame-400">
+                    <i class="fa-solid fa-sparkles text-lg"></i>
+                </div>
+            </div>
+
+            <p class="text-xs text-zinc-300 mb-5">
+                Qual desses sentidos vai ter prioridade quando a porta fechar?
+            </p>
+
+            <div class="grid grid-cols-1 gap-3 mb-6">
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="vibe-sensorial" value="Luz de velas e penumbra romântica" class="sr-only" checked>
+                    <div class="w-full p-4 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-candle-holder text-gold-400 text-lg"></i>
+                            <span class="text-xs md:text-sm font-medium text-zinc-200">Luz de velas & meia-luz provocante</span>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2.5 h-2.5 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="vibe-sensorial" value="Olhares profundos e indiretas sussurradas" class="sr-only">
+                    <div class="w-full p-4 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-eye text-flame-400 text-lg"></i>
+                            <span class="text-xs md:text-sm font-medium text-zinc-200">Olhares nos olhos & sussurros no ouvido</span>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2.5 h-2.5 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="vibe-sensorial" value="Abraço demorado bem colado pele com pele" class="sr-only">
+                    <div class="w-full p-4 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-hand-holding-heart text-pink-400 text-lg"></i>
+                            <span class="text-xs md:text-sm font-medium text-zinc-200">Abraço bem apertado, pele com pele</span>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2.5 h-2.5 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <button onclick="nextStep(4)" class="btn-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg flex items-center justify-center gap-2 text-base">
+                <span>Escolher Cardápio</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+        </section>
+
+
+        <!-- ETAPA 4: CARDÁPIO & ENQUETE DA SOBREMESA -->
+        <section id="step-4" class="step-section card-glass rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-wine-700/50 pb-3">
+                <div>
+                    <span class="text-[10px] text-flame-400 font-extrabold uppercase tracking-widest">Etapa 4 de 7</span>
+                    <h2 class="font-serif text-xl md:text-2xl font-bold text-white">A Grande Sobremesa</h2>
+                </div>
+                <div class="w-10 h-10 bg-wine-800/80 rounded-xl flex items-center justify-center text-flame-400">
+                    <i class="fa-solid fa-wine-glass text-lg"></i>
+                </div>
+            </div>
+
+            <p class="text-xs text-gold-300 font-bold mb-4 uppercase tracking-wider">
+                A comida vai estar maravilhosa, mas qual vai ser a nossa verdadeira sobremesa? 🍓
+            </p>
+
+            <div class="space-y-2.5 mb-6">
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-dessert" value="Petit Gateau com sorvete" class="sr-only" checked>
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">🍨 Petit Gâteau quentinho com sorvete</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-dessert" value="Beijos demorados e quentes no sofá" class="sr-only">
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">💋 Beijos demorados e sem pressa no sofá</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-dessert" value="Você coberto(a) de chantilly" class="sr-only">
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">🔥 Você (e um pouco de chantilly...)</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-dessert" value="Com certeza TODAS as opções acima!" class="sr-only">
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm font-bold text-flame-400">✨ Com certeza TODAS as opções acima!</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <button onclick="nextStep(5)" class="btn-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg flex items-center justify-center gap-2 text-base">
+                <span>Ir para o Detector de Mentiras</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+        </section>
+
+
+        <!-- ETAPA 5: DETECTOR DE MENTIRAS (100% OTIMIZADO PARA TOUCH/CELULAR) -->
+        <section id="step-5" class="step-section card-glass-hot rounded-3xl p-6 text-center relative overflow-hidden min-h-[380px] flex flex-col justify-between">
+            <div>
+                <div class="w-14 h-14 bg-red-600/30 rounded-full flex items-center justify-center mx-auto mb-3 border border-red-500/50 text-red-400 text-2xl animate-bounce">
+                    <i class="fa-solid fa-user-secret"></i>
+                </div>
+
+                <span class="text-[10px] font-extrabold tracking-widest text-gold-300 uppercase bg-wine-900/80 px-3 py-1 rounded-full border border-gold-400/30">
+                    Etapa 5 de 7 • Interrogatório
+                </span>
+
+                <h2 class="font-serif text-2xl font-extrabold mt-3 text-white">
+                    Detector de Mentiras 🕵️‍♂️
+                </h2>
+
+                <p class="text-zinc-200 text-sm font-medium mt-3 px-2">
+                    "Seja sincera: você ficou pensando na gente hoje antes de dormir?" 😏
+                </p>
+            </div>
+
+            <!-- Area de botões interativa -->
+            <div id="detector-area" class="relative w-full h-44 my-4 flex items-center justify-center">
+                <!-- Botão SIM principal -->
+                <button id="btn-yes" onclick="answerLieDetector(true)" class="btn-gradient text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-red-950/80 text-lg z-20 flex items-center gap-2">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>SIM!</span>
+                </button>
+
+                <!-- Botão NÃO fujão para celular e desktop -->
+                <button id="btn-no" 
+                        class="bg-zinc-800 border border-zinc-600 text-zinc-300 font-bold px-6 py-3 rounded-2xl absolute transition-all duration-150 z-10 text-sm shadow-md"
+                        style="right: 15%; top: 35%;">
+                    NÃO
+                </button>
+            </div>
+
+            <p id="detector-hint" class="text-[11px] text-zinc-400 italic">
+                *Responda com toda a honestidade do seu coração.
+            </p>
+        </section>
+
+
+        <!-- ETAPA 6: TRILHA SONORA & CLIMA DO QUARTO -->
+        <section id="step-6" class="step-section card-glass rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-wine-700/50 pb-3">
+                <div>
+                    <span class="text-[10px] text-flame-400 font-extrabold uppercase tracking-widest">Etapa 6 de 7</span>
+                    <h2 class="font-serif text-xl md:text-2xl font-bold text-white">Trilha Sonora & Vibe</h2>
+                </div>
+                <div class="w-10 h-10 bg-wine-800/80 rounded-xl flex items-center justify-center text-flame-400">
+                    <i class="fa-solid fa-music text-lg"></i>
+                </div>
+            </div>
+
+            <p class="text-xs text-zinc-300 mb-5">
+                Qual música vai tocar quando a conversa esquentar e o clima ficar sério? 🎶
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-music" value="R&B envolvente, Jazz & Penumbra" class="sr-only" checked>
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">🎷 R&B envolvente, Jazz & luzes bem baixas</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-music" value="MPB / Acoustic romântico bem coladinhos" class="sr-only">
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">🎸 MPB / Acústico romântico pra cantar pertinho</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="custom-radio flex items-center cursor-pointer">
+                    <input type="radio" name="poll-music" value="Playlist surpresa com batidas quentes e lentas" class="sr-only">
+                    <div class="w-full p-3.5 rounded-2xl border border-wine-700 bg-wine-950/60 flex items-center justify-between transition">
+                        <span class="text-xs md:text-sm text-zinc-200">🔥 Batidas lentas e playlist surpresa bem quente</span>
+                        <div class="w-4 h-4 rounded-full border border-flame-400 flex items-center justify-center shrink-0">
+                            <div class="radio-dot w-2 h-2 rounded-full bg-flame-500 opacity-0 scale-50 transition-all"></div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <button onclick="nextStep(7)" class="btn-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg flex items-center justify-center gap-2 text-base">
+                <span>Finalizar & Ver Resultado</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+        </section>
+
+
+        <!-- ETAPA 7: RESGATE DO PRÊMIO & ENVIO NO WHATSAPP -->
+        <section id="step-7" class="step-section card-glass-hot rounded-3xl p-6 text-center">
+            <div class="w-16 h-16 bg-wine-600/40 rounded-full flex items-center justify-center mx-auto mb-4 border border-flame-400 text-flame-400 text-3xl">
+                <i class="fa-solid fa-heart animate-ping"></i>
+            </div>
+
+            <span class="text-[10px] font-extrabold tracking-widest text-gold-300 uppercase bg-wine-900/80 px-3 py-1 rounded-full border border-gold-400/30">
+                Gran Finale
+            </span>
+
+            <h2 class="font-serif text-3xl font-extrabold text-white mt-2 mb-2">
+                Você Aceitou Tudo! 💋
+            </h2>
+
+            <div class="my-4 bg-wine-950/80 border border-flame-500/30 p-4 rounded-2xl text-left">
+                <p class="font-serif italic text-flame-300 text-xs md:text-sm leading-relaxed mb-2">
+                    "Você concordou com os termos, definiu o perigo e escolheu a sobremesa... Agora não tem mais como fugir."
+                </p>
+                <span class="block text-right font-cursive text-2xl text-gold-300">Te espero em breve. ❤️</span>
+            </div>
+
+            <p class="text-zinc-300 text-xs mb-6">
+                Clique no botão abaixo para me mandar o resumo de tudo no WhatsApp:
+            </p>
+
+            <a id="whatsapp-final-btn" onclick="sendToWhatsApp(event)" href="#" target="_blank" class="btn-gradient w-full py-4 rounded-2xl font-extrabold text-white shadow-xl flex items-center justify-center gap-3 text-base">
+                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                <span>Enviar Respostas no WhatsApp</span>
+            </a>
+        </section>
+
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        // State management
+        let currentStep = 1;
+        let dangerLevel = "50%";
+        let dangerPhrase = "Clima esquentando... Riscos moderados de perda de controle!";
+        let creatorPhone = "";
+        let selectedClauses = [];
+        let chosenVibe = "";
+        let chosenDessert = "";
+        let lieDetectorAnswered = false;
+        let chosenMusic = "";
+
+        // Danger Meter logic
+        function updateDangerMeter(val) {
+            dangerLevel = val + "%";
+            document.getElementById('danger-val-display').innerText = dangerLevel;
+            const textEl = document.getElementById('danger-text');
+
+            if (val < 25) {
+                dangerPhrase = "Inocente... Aparentemente uma noite tranquila (por enquanto). 😉";
+                textEl.innerText = `"${dangerPhrase}"`;
+            } else if (val < 60) {
+                dangerPhrase = "Clima esquentando... Riscos moderados de perda de controle! 🔥";
+                textEl.innerText = `"${dangerPhrase}"`;
+            } else if (val < 85) {
+                dangerPhrase = "Alerta Laranja: Segura a ansiedade que o bicho vai pegar! 😈";
+                textEl.innerText = `"${dangerPhrase}"`;
+            } else {
+                dangerPhrase = "ALERTA VERMELHO: Perigo extremo de incêndio e perda total da razão! 🌋🔥";
+                textEl.innerText = `"${dangerPhrase}"`;
+            }
+        }
+
+        // Navigation & Progress Bar
+        function nextStep(stepNumber) {
+            // Save state based on current step
+            if (currentStep === 1) {
+                creatorPhone = document.getElementById('creator-phone').value.trim();
+            }
+
+            if (currentStep === 2) {
+                const checkboxes = document.querySelectorAll('#clauses-container input[type="checkbox"]:checked');
+                selectedClauses = Array.from(checkboxes).map(cb => cb.getAttribute('data-clause'));
+            }
+
+            if (currentStep === 3) {
+                const vibeRadio = document.querySelector('input[name="vibe-sensorial"]:checked');
+                chosenVibe = vibeRadio ? vibeRadio.value : "Luz de velas";
+            }
+
+            if (currentStep === 4) {
+                const dessertRadio = document.querySelector('input[name="poll-dessert"]:checked');
+                chosenDessert = dessertRadio ? dessertRadio.value : "Todas!";
+            }
+
+            if (currentStep === 6) {
+                const musicRadio = document.querySelector('input[name="poll-music"]:checked');
+                chosenMusic = musicRadio ? musicRadio.value : "Playlist surpresa";
+            }
+
+            // Transition UI
+            const currentEl = document.getElementById(`step-${currentStep}`);
+            const nextEl = document.getElementById(`step-${stepNumber}`);
+
+            if (currentEl) {
+                currentEl.classList.remove('active');
+            }
+
+            setTimeout(() => {
+                currentStep = stepNumber;
+                if (nextEl) nextEl.classList.add('active');
+
+                // Update progress bar
+                const percent = Math.round((currentStep / 7) * 100);
+                document.getElementById('progress-label').innerText = `Etapa ${currentStep} de 7`;
+                document.getElementById('progress-percent').innerText = `${percent}%`;
+                document.getElementById('progress-bar').style.width = `${percent}%`;
+                
+                // Trigger hearts effect on step 7
+                if (currentStep === 7) {
+                    createHeartParticles();
+                }
+            }, 250);
+        }
+
+        // DETECTOR DE MENTIRAS (MOBILE & TOUCH FRIENDLY "NO" BUTTON DODGER)
+        const btnNo = document.getElementById('btn-no');
+        const detectorArea = document.getElementById('detector-area');
+        let noAttempts = 0;
+
+        const evadeNoButton = (e) => {
+            if (e) e.preventDefault();
+            noAttempts++;
+
+            const areaRect = detectorArea.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+
+            // Calculate new positions inside the container boundaries
+            const maxX = areaRect.width - btnRect.width - 20;
+            const maxY = areaRect.height - btnRect.height - 20;
+
+            const newX = Math.max(10, Math.floor(Math.random() * maxX));
+            const newY = Math.max(10, Math.floor(Math.random() * maxY));
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = `${newX}px`;
+            btnNo.style.top = `${newY}px`;
+
+            // Change button texts playfully as she tries to tap
+            const texts = ["NÃO", "Certeza?", "Tenta de novo", "Ops! 🙈", "Vem cá, SIM!", "Sem chance!"];
+            btnNo.innerText = texts[noAttempts % texts.length];
+
+            // If she keeps tapping, transform it into YES!
+            if (noAttempts >= 5) {
+                btnNo.innerText = "SIM! ❤️";
+                btnNo.className = "btn-gradient text-white font-extrabold px-6 py-3 rounded-2xl absolute text-sm shadow-lg";
+                btnNo.onclick = () => answerLieDetector(true);
+            }
+        };
+
+        // Attach multiple mobile touch & pointer events
+        btnNo.addEventListener('touchstart', evadeNoButton, { passive: false });
+        btnNo.addEventListener('pointerdown', evadeNoButton);
+        btnNo.addEventListener('mouseover', evadeNoButton);
+        btnNo.addEventListener('click', evadeNoButton);
+
+        function answerLieDetector(answer) {
+            lieDetectorAnswered = answer;
+            createHeartParticles();
+            
+            const hint = document.getElementById('detector-hint');
+            hint.innerHTML = "<span class='text-flame-400 font-bold'>Eu já sabia! O detector confirmou 100% de verdade. 😉</span>";
+            
+            setTimeout(() => {
+                nextStep(6);
+            }, 800);
+        }
+
+        // Particle System
+        function createHeartParticles() {
+            const colors = ['#ff4d4d', '#a31c39', '#fbbf24', '#ffffff', '#ff9999'];
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('i');
+                    particle.className = 'fa-solid fa-heart particle';
+                    particle.style.left = Math.random() * 95 + 'vw';
+                    particle.style.top = '100vh';
+                    particle.style.fontSize = (Math.random() * 20 + 12) + 'px';
+                    particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 4500);
+                }, i * 80);
+            }
+        }
+
+        // WhatsApp Link Generator
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            createHeartParticles();
+
+            let text = `Oi amor! 💋 Preenchi a sua pegadinha flertante e aqui estão as minhas escolhas:\n\n`;
+            
+            text += `🔥 *Nível de Perigo:* ${dangerLevel} (${dangerPhrase})\n\n`;
+            
+            text += `📌 *Cláusulas que APROVEI:*\n`;
+            if (selectedClauses.length > 0) {
+                selectedClauses.forEach(c => {
+                    text += `• ${c}\n`;
+                });
+            } else {
+                text += `• Aprovo absolutamente tudo que você mandar! 😉\n`;
+            }
+
+            text += `\n✨ *Estímulo da Noite:* ${chosenVibe}\n`;
+            text += `🍓 *Sobremesa Escolhida:* ${chosenDessert}\n`;
+            text += `🕵️‍♂️ *Pensou na gente antes de dormir?* SIM! (Detector Confirmado)\n`;
+            text += `🎵 *Trilha Sonora:* ${chosenMusic}\n\n`;
+            text += `"Agora não tem mais como fugir..." Quando é que a gente coloca tudo isso em prática? ❤️🔥`;
+
+            const encodedText = encodeURIComponent(text);
+            let targetUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
+
+            if (creatorPhone) {
+                const cleanPhone = creatorPhone.replace(/\D/g, '');
+                if (cleanPhone.length >= 8) {
+                    targetUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedText}`;
+                }
+            }
+
+            setTimeout(() => {
+                window.open(targetUrl, '_blank');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
